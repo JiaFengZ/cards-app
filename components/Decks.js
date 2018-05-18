@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 class Decks extends Component {
-  return (
-    <View>Decks</View>
-  )
+  render() {
+    return (
+      <ScrollView><Text>Decks</Text></ScrollView>
+    )
+  }
 }
 
 export default Decks;
