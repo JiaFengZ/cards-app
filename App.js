@@ -13,39 +13,35 @@ const Tabs = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
-    },
+    }
   },
   CreateDeck: {
     screen: CreateDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
-    },
+    }
   }
+}, {
+  initialRouteName: 'Decks'
 })
 
 const MainNavigator = createStackNavigator({
   Home: {
-    screen: Tabs,
+    screen: Tabs
   },
   CardDetail: {
-    screen: Card,
-    navigationOptions: {
-      headerTintColor: '#fff',
-      headerStyle: {
-        backgroundColor: '#292477',
-      }
-    }
+    screen: Card
   }
+}, {
+  initialRouteName: 'Home'
 })
 
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <MainNavigator />
-      </View>
+      <MainNavigator/>
     );
   }
 }
