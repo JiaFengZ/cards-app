@@ -28,10 +28,16 @@ const Tabs = createBottomTabNavigator({
 
 const MainNavigator = createStackNavigator({
   Home: {
-    screen: Tabs
+    screen: Tabs,
+    navigationOptions: ({ navigation }) => ({
+      title: '主页'
+    })
   },
   CardDetail: {
-    screen: Card
+    screen: Card,
+    navigationOptions: ({ navigation }) => ({
+      title: '卡片详情'
+    })
   }
 }, {
   initialRouteName: 'Home'

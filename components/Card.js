@@ -4,14 +4,25 @@ import { Button, View, Text, StyleSheet } from 'react-native';
 class Card extends Component {
   render() {
     return (
-      <View>
-      	<Button
-		  onPress={() => this.props.navigation.goBack()}
-		  title="goback Decks"
-		  color="#841584"
-		  accessibilityLabel="Learn more about this purple button"
-		/>
+      <View style={{alignItems: 'center', padding: 20}}>
+      	<View style={{width: 100, marginBottom: 10}}>
+	      	<Button
+			  onPress={() => this.props.navigation.goBack()}
+			  title="add card"
+			  color="#841584"		  
+			  accessibilityLabel="Learn more about this purple button"
+			/>  	    
+	      </View>
+	      <View>      	
+	  	    <Button
+			  onPress={() => this.props.navigation.goBack()}
+			  title="start quit"
+			  color="#841584"		  
+			  accessibilityLabel="Learn more about this purple button"
+			/>
+	      </View>
       </View>
+      
     )
   }
 }
