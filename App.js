@@ -5,7 +5,8 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import Decks from './components/Decks';
 import Card from './components/Card';
 import CreateDeck from './components/CreateDeck';
-
+import CreateCard from './components/CreateCard';
+import Quiz from './components/Quiz';
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -37,6 +38,18 @@ const MainNavigator = createStackNavigator({
     screen: Card,
     navigationOptions: ({ navigation }) => ({
       title: '卡片详情'
+    })
+  },
+  CreateCard: {
+    screen: CreateCard,
+    navigationOptions: ({ navigation }) => ({
+      title: '创建卡片'
+    })
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: ({ navigation }) => ({
+      title: '测试'
     })
   }
 }, {

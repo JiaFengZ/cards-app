@@ -7,7 +7,7 @@ class Card extends Component {
       <View style={{alignItems: 'center', padding: 20}}>
       	<View style={{width: 100, marginBottom: 10}}>
 	      	<Button
-			  onPress={() => this.props.navigation.goBack()}
+			  onPress={() => this.props.navigation.navigate('CreateCard')}
 			  title="add card"
 			  color="#841584"		  
 			  accessibilityLabel="Learn more about this purple button"
@@ -15,7 +15,7 @@ class Card extends Component {
 	      </View>
 	      <View>      	
 	  	    <Button
-			  onPress={() => this.props.navigation.goBack()}
+			  onPress={() => this.props.navigation.navigate('Quiz')}
 			  title="start quit"
 			  color="#841584"		  
 			  accessibilityLabel="Learn more about this purple button"
