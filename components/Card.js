@@ -9,18 +9,18 @@ class Card extends Component {
 	      	<Button
 			  onPress={() => this.props.navigation.navigate('CreateCard')}
 			  title="add card"
-			  color="#841584"		  
+			  color="#1194f6"		  
 			  accessibilityLabel="Learn more about this purple button"
 			/>  	    
-	      </View>
-	      <View>      	
+	    </View>
+	    <View style={{width: 100}}>      	
 	  	    <Button
 			  onPress={() => this.props.navigation.navigate('Quiz')}
 			  title="start quit"
 			  color="#841584"		  
 			  accessibilityLabel="Learn more about this purple button"
 			/>
-	      </View>
+	    </View>
       </View>
       
     )
