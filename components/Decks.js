@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 import { Button, TouchableHighlight, FlatList, View, Text, ScrollView, StyleSheet, Platform } from 'react-native';
+import { getDecks } from '../AsyncStorage';
 
 class Decks extends Component {
+  state = {
+  	decks: []
+  }
+
   onPress() {
   	this.props.navigation.navigate('CardDetail')
+  }
+
+  componentDidMount() {
+  	getDecks().then((res) => {
+  		console.log(res);
+  		let decks = [];
+  		const data = JSON.parse(res);
+  		/*for (let key in res) {
+  			decks.push(res[key]);
+  		}*/
+  		
+  		console.log(decks);
+  		this.setState({
+  			decks: data
+  		})
+  	})
   }
 
   render() {
@@ -13,7 +34,7 @@ class Decks extends Component {
 		  ItemSeparatorComponent={({highlighted}) => (
 		    <View style={[style.separator, highlighted && {marginLeft: 0}]} />
 		  )}
-		  data={[{title: 'decks1', key: 'item1', num: '12'},{title: 'deck2', key: 'item2', num: '13'},{title: 'decks3', key: 'item3', num: '11'}]}
+		  data={this.state.decks}
 		  renderItem={({item, separators}) => (
 		    <TouchableHighlight
 		      onPress={() => this.onPress(item)}
@@ -21,7 +42,7 @@ class Decks extends Component {
 		      onHideUnderlay={separators.unhighlight}>
 		      <View style={{backgroundColor: 'white', padding: 20, height: 100}}>
 		        <Text style={{fontSize: 20, textAlign: 'center'}}>{item.title}</Text>
-		        <Text style={{color: '#666', textAlign: 'center'}}>{item.num}&nbsp;cards</Text>
+		        <Text style={{color: '#666', textAlign: 'center'}}>{item.questions.length}&nbsp;cards</Text>
 		      </View>
 		    </TouchableHighlight>
 		  )}
