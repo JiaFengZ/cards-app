@@ -7,8 +7,8 @@ class Decks extends Component {
   	decks: []
   }
 
-  onPress() {
-  	this.props.navigation.navigate('CardDetail')
+  onPress(deck) {
+  	this.props.navigation.navigate('CardDetail', {deck: deck});
   }
 
   componentDidMount() {

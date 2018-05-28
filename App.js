@@ -12,15 +12,15 @@ const Tabs = createBottomTabNavigator({
   Decks: {
     screen: Decks,
     navigationOptions: {
-      tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+      tabBarLabel: '卡片集',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='md-bookmarks' size={30} color={tintColor} />
     }
   },
   CreateDeck: {
     screen: CreateDeck,
     navigationOptions: {
-      tabBarLabel: 'New Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+      tabBarLabel: '新建卡片',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='md-add-circle' size={30} color={tintColor} />
     }
   }
 }, {

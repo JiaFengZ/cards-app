@@ -26,12 +26,14 @@ class CreateDecks extends Component {
       		<Switch value={this.state.answer} onValueChange={(value) => this.selectAnswer(value)}></Switch>
       		<Text style={{color: '#999'}}>{this.state.answer?'正确':'错误'}</Text>
       	</View>
-      	<Button
-		  onPress={() => this.props.navigation.goBack()}
-		  title="提交"
-		  color="#841584"		  
-		  accessibilityLabel="submit the title of the deck"
-		/>
+      	<View style={{width: 120}}> 
+          <Button
+            onPress={() => this.props.navigation.goBack()}
+            title="提交"
+            color="#841584"     
+            accessibilityLabel="submit the title of the deck"
+          />
+        </View>
       </View>
     )
   }
