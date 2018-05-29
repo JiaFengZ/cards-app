@@ -74,7 +74,7 @@ class Quiz extends Component {
       const question = this.state.allQuestions[this.state.curQuestionIndex] || {};
       return (
         <View style={{alignItems: 'center', justifyContent: 'space-between', height: '100%', padding: 20}}>        
-          <Text style={{color: '#1194f6', alignSelf: 'flex-start'}}>{this.state.curQuestionIndex+1}/{this.state.allQuestions.length}</Text>
+          <Text style={{color: '#1194f6', fontSize: 18, alignSelf: 'flex-start'}}>{this.state.curQuestionIndex+1}/{this.state.allQuestions.length}</Text>
           {this.state.showAnswer ? (
             <Text style={{fontSize: 18}}>{question.answer?'正确':'错误'}</Text>
           ):(

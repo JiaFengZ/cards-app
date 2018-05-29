@@ -10,8 +10,8 @@ class CreateCard extends Component {
       	<View style={{width: 120}}>
           <Button
             onPress={() => this.props.navigation.goBack()}
-            title="提交"
-            color="#841584"     
+            title="创建卡片集"
+            color="#1194f6"     
             accessibilityLabel="submit the title of the deck"
           />
         </View>

@@ -19,7 +19,7 @@ const Tabs = createBottomTabNavigator({
   CreateDeck: {
     screen: CreateDeck,
     navigationOptions: {
-      tabBarLabel: '新建卡片',
+      tabBarLabel: '创建卡片集',
       tabBarIcon: ({ tintColor }) => <Ionicons name='md-add-circle' size={30} color={tintColor} />
     }
   }

@@ -6,7 +6,7 @@ class Card extends Component {
     const deck = this.props.navigation.state.params.deck;
     return (
       <View style={{height: '100%', alignItems: 'center', justifyContent: 'space-between', padding: 20}}>      	
-      	<View style={{marginTop: 20, alignItems: 'center', width: '100%', borderRadius: 5, borderColor: '#555', borderWidth: 2, backgroundColor: '#fff', padding: 10}}>
+      	<View style={style.cards}>
       		<Text style={{fontSize: 20}}>{deck.title}</Text>
       		<Text style={{color: '#666'}}>{deck.questions.length}&nbsp;cards</Text>
       	</View>
@@ -35,3 +35,18 @@ class Card extends Component {
 }
 
 export default Card;
+
+const style = StyleSheet.create({
+  cards: {
+    marginTop: 20, 
+    alignItems: 'center', 
+    width: '100%', 
+    borderRadius: 5,
+    backgroundColor: '#fff', 
+    shadowColor: 'rgba(0, 0, 0, 0.6)',
+    shadowOpacity: 0.6,
+    shadowOffset: {width: 0, height: 2},
+    elevation: 10,
+    padding: 10
+  },
+});
