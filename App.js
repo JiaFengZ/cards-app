@@ -7,6 +7,7 @@ import Card from './components/Card';
 import CreateDeck from './components/CreateDeck';
 import CreateCard from './components/CreateCard';
 import Quiz from './components/Quiz';
+import Calendars from './components/Calendars';
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -21,6 +22,13 @@ const Tabs = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: '创建卡片集',
       tabBarIcon: ({ tintColor }) => <Ionicons name='md-add-circle' size={30} color={tintColor} />
+    }
+  },
+  Calendars: {
+    screen: Calendars,
+    navigationOptions: {
+      tabBarLabel: '我的计划',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='md-calendar' size={30} color={tintColor} />
     }
   }
 }, {

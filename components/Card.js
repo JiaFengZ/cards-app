@@ -13,21 +13,21 @@ class Card extends Component {
       	<View style={{width: 200, marginBottom: 10}}>
 	      	<View>
 	      		<Button
-				  onPress={() => this.props.navigation.navigate('CreateCard')}
-				  title="添加卡片"
-				  color="#1194f6"		  
-				  accessibilityLabel="Learn more about this purple button"
-				/>
+						  onPress={() => this.props.navigation.navigate('CreateCard')}
+						  title="添加卡片"
+						  color="#1194f6"		  
+						  accessibilityLabel="Learn more about this purple button"
+						/>
 	      	</View>
 	      	<View style={{marginTop: 10}}>
 	      		<Button
-				  onPress={() => this.props.navigation.navigate('Quiz', {questions: deck.questions})}
-				  title="开始测试"
-				  color="#841584"		  
-				  accessibilityLabel="Learn more about this purple button"
-				/> 	    
+						  onPress={() => this.props.navigation.navigate('Quiz', {questions: deck.questions})}
+						  title="开始测试"
+						  color="#841584"		  
+						  accessibilityLabel="Learn more about this purple button"
+						/> 	    
 	      	</View>	      	 		
-	    </View>
+	    	</View>
       </View>
       
     )
