@@ -2,6 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
+
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import reducers from './reducers';
+
 import Decks from './components/Decks';
 import Card from './components/Card';
 import CreateDeck from './components/CreateDeck';
@@ -65,10 +71,18 @@ const MainNavigator = createStackNavigator({
 })
 
 
-export default class App extends React.Component {
+export default class App extends React.Component {  
   render() {
+    const store = createStore(
+      reducers,
+      applyMiddleware(
+          thunkMiddleware        
+        )
+    );
     return (
-      <MainNavigator/>
+      <Provider store={store}>
+        <MainNavigator/>
+      </Provider>
     );
   }
 }

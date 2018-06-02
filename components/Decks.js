@@ -1,40 +1,31 @@
 import React, { Component } from 'react';
 import { Button, TouchableHighlight, FlatList, View, Text, ScrollView, StyleSheet, Platform } from 'react-native';
-import { getDecks } from '../AsyncStorage';
+import { connect } from 'react-redux';
+import { getDecks } from '../actions';
 
 class Decks extends Component {
   state = {
-  	decks: []
+  	decksVersion: 0
   }
 
   onPress(deck) {
   	this.props.navigation.navigate('CardDetail', {deck: deck});
   }
 
-  componentDidMount() {
-  	getDecks().then((res) => {
-  		console.log(res);
-  		let decks = [];
-  		const data = JSON.parse(res);
-  		/*for (let key in res) {
-  			decks.push(res[key]);
-  		}*/
-  		
-  		console.log(decks);
-  		this.setState({
-  			decks: data
-  		})
-  	})
+  componentDidMount() {  	
+    this.props.dispatch(getDecks());
   }
 
   render() {
+    const { decks } = this.props;
+    console.log(decks);
     return (
       <ScrollView>
       	<FlatList
     		  ItemSeparatorComponent={({highlighted}) => (
     		    <View style={[style.separator, highlighted && {marginLeft: 0}]} />
     		  )}
-    		  data={this.state.decks}
+    		  data={decks}
     		  renderItem={({item, separators}) => (
     		    <TouchableHighlight
     		      onPress={() => this.onPress(item)}
@@ -52,7 +43,15 @@ class Decks extends Component {
   }
 }
 
-export default Decks;
+function mapStateToProps(state) {  
+  return {
+    decks: state.data
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Decks)
 
 const style = StyleSheet.create({
   separator: {
