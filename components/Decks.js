@@ -9,7 +9,7 @@ class Decks extends Component {
   }
 
   onPress(deck) {
-  	this.props.navigation.navigate('CardDetail', {deck: deck});
+  	this.props.navigation.navigate('DeckDetail', {deckKey: deck.key});
   }
 
   componentDidMount() {  	
@@ -17,8 +17,7 @@ class Decks extends Component {
   }
 
   render() {
-    const { decks } = this.props;
-    console.log(decks);
+    const { decks } = this.props;    
     return (
       <ScrollView>
       	<FlatList

@@ -4,7 +4,7 @@ import { saveDeckTitle } from '../AsyncStorage';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 
-class CreateCard extends Component {
+class CreateDeck extends Component {
   constructor(props) {
     super(props);
     this.saveDeckTitle = this.saveDeckTitle.bind(this);
@@ -58,4 +58,4 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps
-)(CreateCard)
+)(CreateDeck)

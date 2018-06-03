@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { getDeck } from '../actions';
 
-class Card extends Component {
+class Deck extends Component {
+  componentDidMount() {   
+    this.props.dispatch(getDeck(this.props.navigation.state.params.deckKey));
+  }
+
   render() {
-    const deck = this.props.navigation.state.params.deck;
+    const { deck } = this.props;    
     return (
-      <View style={{height: '100%', alignItems: 'center', justifyContent: 'space-between', padding: 20}}>      	
+      <View style={{height: '100%', alignItems: 'center', justifyContent: 'space-between', padding: 20}}>
       	<View style={style.cards}>
       		<Text style={{fontSize: 20}}>{deck.title}</Text>
-      		<Text style={{color: '#666'}}>{deck.questions.length}&nbsp;cards</Text>
+      		<Text style={{color: '#666'}}>{deck.questions&&deck.questions.length}&nbsp;cards</Text>
       	</View>
       	<View style={{width: 200, marginBottom: 10}}>
 	      	<View>
 	      		<Button
-						  onPress={() => this.props.navigation.navigate('CreateCard')}
+						  onPress={() => this.props.navigation.navigate('CreateCard', {deckKey: deck.key})}
 						  title="添加卡片"
 						  color="#1194f6"		  
 						  accessibilityLabel="Learn more about this purple button"
@@ -34,7 +40,15 @@ class Card extends Component {
   }
 }
 
-export default Card;
+function mapStateToProps(state) {    
+  return {
+    deck: state.deck
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Deck)
 
 const style = StyleSheet.create({
   cards: {

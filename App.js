@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers';
 
 import Decks from './components/Decks';
-import Card from './components/Card';
+import Deck from './components/Deck';
 import CreateDeck from './components/CreateDeck';
 import CreateCard from './components/CreateCard';
 import Quiz from './components/Quiz';
@@ -48,8 +48,8 @@ const MainNavigator = createStackNavigator({
       title: '主页'
     })
   },
-  CardDetail: {
-    screen: Card,
+  DeckDetail: {
+    screen: Deck,
     navigationOptions: ({ navigation }) => ({
       title: '卡片详情'
     })

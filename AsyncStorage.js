@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 let storage_object = {
   React: {
     title: 'React',
-    key: '1',
+    key: 'React',
     questions: [
       {
         question: 'Is React a library for managing user interfaces?',
@@ -17,7 +17,7 @@ let storage_object = {
   },
   Javascript: {
     title: 'JavaScript',
-    key: '2',
+    key: 'Javascript',
     questions: [
       {
         question: 'The combination of a function and the lexical environment within which that function was declared',
@@ -40,8 +40,12 @@ export function getDecks() {
   });
 }
 
-export function getDeck() {
-
+export function getDeck(deckKey) {
+  return AsyncStorage.getItem('storage')
+  .then((result) => {    
+    const data = JSON.parse(result);
+    return data[deckKey] || {};
+  });
 }
 
 export function saveDeckTitle({key, title}) {
@@ -50,6 +54,14 @@ export function saveDeckTitle({key, title}) {
   }))
 }
 
-export function addCardToDeck() {
-
+export function addCardToDeck({question, answer, deckKey}) {
+  return AsyncStorage.getItem('storage')
+  .then((result) => {
+    const data = JSON.parse(result);
+    const item = data[deckKey];
+    item.questions.push({question: question, answer: answer});    
+    return AsyncStorage.mergeItem('storage', JSON.stringify({
+      [deckKey]: item
+    }))
+  })
 }
