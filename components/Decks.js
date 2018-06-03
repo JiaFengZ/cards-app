@@ -30,7 +30,7 @@ class Decks extends Component {
     		      onPress={() => this.onPress(item)}
     		      onShowUnderlay={separators.highlight}
     		      onHideUnderlay={separators.unhighlight}>
-    		      <View style={{backgroundColor: 'white', padding: 20, height: 100}}>
+    		      <View style={style.deckItem}>
     		        <Text style={{fontSize: 20, textAlign: 'center'}}>{item.title}</Text>
     		        <Text style={{color: '#666', textAlign: 'center'}}>{item.questions.length}&nbsp;cards</Text>
     		      </View>
@@ -57,4 +57,9 @@ const style = StyleSheet.create({
     backgroundColor: '#eee',
     height: 5
   },
+  deckItem: {
+    backgroundColor: 'white', 
+    padding: 20, 
+    height: 100
+  }
 });

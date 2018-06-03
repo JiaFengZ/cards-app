@@ -11,7 +11,7 @@ class Deck extends Component {
   render() {
     const { deck } = this.props;    
     return (
-      <View style={{height: '100%', alignItems: 'center', justifyContent: 'space-between', padding: 20}}>
+      <View style={style.container}>
       	<View style={style.cards}>
       		<Text style={{fontSize: 20}}>{deck.title}</Text>
       		<Text style={{color: '#666'}}>{deck.questions&&deck.questions.length}&nbsp;cards</Text>
@@ -22,7 +22,7 @@ class Deck extends Component {
 						  onPress={() => this.props.navigation.navigate('CreateCard', {deckKey: deck.key})}
 						  title="添加卡片"
 						  color="#1194f6"		  
-						  accessibilityLabel="Learn more about this purple button"
+						  accessibilityLabel="add card"
 						/>
 	      	</View>
 	      	<View style={{marginTop: 10}}>
@@ -30,7 +30,7 @@ class Deck extends Component {
 						  onPress={() => this.props.navigation.navigate('Quiz', {questions: deck.questions})}
 						  title="开始测试"
 						  color="#841584"		  
-						  accessibilityLabel="Learn more about this purple button"
+						  accessibilityLabel="quit"
 						/> 	    
 	      	</View>	      	 		
 	    	</View>
@@ -63,4 +63,10 @@ const style = StyleSheet.create({
     elevation: 10,
     padding: 10
   },
+  container: {
+    height: '100%', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    padding: 20
+  }
 });

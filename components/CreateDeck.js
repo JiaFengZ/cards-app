@@ -33,7 +33,7 @@ class CreateDeck extends Component {
 
   render() {
     return (
-      <View style={{height: '100%', alignItems: 'center', padding: 20, justifyContent: 'space-between'}}>
+      <View style={style.container}>
       	<View>
           <Text style={{fontSize: 20, textAlign: 'center'}}>请输入卡片集的名称？</Text>
           <TextInput style={{width: 200, padding: 10}} placeholder="卡片集名称" value={this.state.title} onChangeText={(text) => this.updateDeckTitle(text)}></TextInput>  
@@ -51,11 +51,13 @@ class CreateDeck extends Component {
   }
 }
 
-function mapStateToProps(state) {  
-  return {
-  }
-}
+export default connect()(CreateDeck);
 
-export default connect(
-  mapStateToProps
-)(CreateDeck)
+const style = StyleSheet.create({  
+  container: {
+    height: '100%', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    padding: 20
+  }
+});

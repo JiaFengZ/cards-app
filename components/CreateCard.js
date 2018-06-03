@@ -39,7 +39,7 @@ class CreateCard extends Component {
 
   render() {
     return (
-      <View style={{alignItems: 'center', padding: 20, height: '100%', justifyContent: 'space-between'}}>      	
+      <View style={style.container}>      	
       	<View>
           <TextInput style={{width: 200, padding: 10}} multiline={true} placeholder="请输入卡片问题" value={this.state.question} onChangeText={(text) => this.updateCardQuestion(text)}></TextInput>       
           <View style={{flexDirection: 'row', padding: 10}}>                    
@@ -54,7 +54,7 @@ class CreateCard extends Component {
             onPress={() => this.saveCard()}
             title="提交"
             color="#1194f6"     
-            accessibilityLabel="submit the title of the deck"
+            accessibilityLabel="submit the card"
           />
         </View>
       </View>
@@ -62,5 +62,13 @@ class CreateCard extends Component {
   }
 }
 
-
 export default connect()(CreateCard);
+
+const style = StyleSheet.create({  
+  container: {
+    height: '100%', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    padding: 20
+  }
+});
