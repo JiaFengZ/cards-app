@@ -2,32 +2,52 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  TouchableHighlight
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
+import PlanModal from './PlanModal';
 
 export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {}
+      items: {},
+      modalVisible: false
     };
+    this.setModalVisible = this.setModalVisible.bind(this);
+  }
+
+  setModalVisible(visible) {
+    console.log(visible)
+    this.setState({modalVisible: visible});
   }
 
   render() {
     return (
-      <Agenda
-        items={
-          {'2018-05-22': [{text: 'item 1 - any js object'}],
-           '2018-05-23': [{text: 'item 2 - any js object'}],
-           '2018-05-24': [],
-           '2018-05-25': [{text: 'item 3 - any js object'},{text: 'any js object'}],
-          }}
-        loadItemsForMonth={this.loadItems.bind(this)}
-        renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
-      />
+      <View style={{height: '100%'}}>
+        <Agenda
+          items={
+            {'2018-06-22': [{text: 'item 1 - any js object'}],
+             '2018-06-23': [{text: 'item 2 - any js object'}],
+             '2018-06-24': [],
+             '2018-06-25': [{text: 'item 3 - any js object'},{text: 'any js object'}],
+            }}
+          loadItemsForMonth={this.loadItems.bind(this)}
+          renderItem={this.renderItem.bind(this)}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+        />
+        <PlanModal setModalVisible={this.setModalVisible} modalVisible={this.state.modalVisible}/>
+        <TouchableHighlight
+          underlayColor='#841584'
+          style={{backgroundColor: '#1194f6', width: 120, margin: 10}}
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Text style={{color: '#fff', textAlign: 'center'}}>添加</Text>
+        </TouchableHighlight>
+      </View>      
     );
   }
 
@@ -43,7 +63,9 @@ export default class AgendaScreen extends Component {
 
   renderEmptyDate() {
     return (
-      <View style={styles.emptyDate}><Text>你今天没有计划</Text></View>
+      <View style={styles.emptyDate}>
+        <Text>你今天没有计划</Text>        
+      </View>
     );
   }
 
