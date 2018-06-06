@@ -74,11 +74,14 @@ export function addCardToDeck({question, answer, deckKey}) {
   })
 }
 
-export function addPlan({date, deckKey}) {
-  return AsyncStorage.mergeItem('paln', JSON.stringify({
+export function addPlan({date, deck}) {
+  console.log(deck);
+  return AsyncStorage.mergeItem('plan', JSON.stringify({
       [new Date().getTime()]: {
-        date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
-        deckKey: deckKey
+        date: date.getFullYear() + '-' + 
+          ((date.getMonth() + 1) < 10 ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-' + 
+          (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()),
+        deck: deck
       }
     }))
 }

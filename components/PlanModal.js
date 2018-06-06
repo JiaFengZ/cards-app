@@ -25,14 +25,22 @@ class PlanModal extends Component {
   }
 
   handleDeckPicked = (deck) => {
+    console.log(deck)
     this.setState({
       selectedDeck: deck
     })
   }
 
   addPlan = () => {
-    this.props.dispatch(addPlan({date: this.state.selectedDate, deckKey: this.state.selectDeck}));
-    this.hideDateTimePicker();
+    if (!this.state.selectedDate) {
+      alert('请选择日期！');
+      return;
+    } else if (!this.state.selectedDeck) {
+      alert('请选择卡片集！');
+      return;
+    }
+    this.props.dispatch(addPlan({date: this.state.selectedDate, deck: this.state.selectedDeck}));
+    this.props.setModalVisible(false);
   }
 
   componentDidMount() {   
@@ -57,10 +65,10 @@ class PlanModal extends Component {
             />
             <Text>选择计划测试的卡片集</Text>
             <Picker
-              selectedValue={this.state.language}
+              selectedValue={this.state.selectedDeck}
               style={{ height: 50, width: 150 }}
-              onValueChange={(itemValue, itemIndex) => this.selectDeck(itemValue)}>              
-              {this.props.decks.map((deck) => <Picker.Item label={deck.title} value={deck.key} key={deck.key}/>)}
+              onValueChange={(itemValue, itemIndex) => this.handleDeckPicked(itemValue)}>              
+              {this.props.decks.map((deck) => <Picker.Item label={deck.title} value={deck} key={deck.key}/>)}
             </Picker>
 
             <Text>选择计划测试的日期</Text>

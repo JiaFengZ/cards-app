@@ -30,18 +30,23 @@ class AgendaScreen extends Component {
   }
 
   render() {
-    console.log(this.state.plans);
+    console.log(this.props.plans);
+    const { plans } = this.props;
+    const { items } = this.state;
+    plans.forEach((plan) => {
+      if (!items[plan.date]) {
+        items[plan.date] = [];
+      }
+      if (plan.deck) {
+        items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title});  
+      }      
+    }) 
     return (
       <View style={{height: '100%'}}>
         <Agenda
-          items={
-            {'2018-06-22': [{text: 'item 1 - any js object'}],
-             '2018-06-23': [{text: 'item 2 - any js object'}],
-             '2018-06-24': [],
-             '2018-06-25': [{text: 'item 3 - any js object'},{text: 'any js object'}],
-            }}
+          items={items}
           loadItemsForMonth={this.loadItems.bind(this)}
-          renderItem={this.renderItem.bind(this)}
+          renderItem={this.renderItem.bind(this)}          
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
@@ -61,7 +66,17 @@ class AgendaScreen extends Component {
   }
 
   loadItems(day) {
-   
+    let newItems = {};
+    for (let i = -15; i < 85; i++) {
+      const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+      const strTime = this.timeToString(time);
+      if (!newItems[strTime]) {
+        newItems[strTime] = [];
+      }      
+    }            
+    this.setState({
+      items: newItems
+    });
   }
 
   renderItem(item) {
@@ -73,7 +88,7 @@ class AgendaScreen extends Component {
   renderEmptyDate() {
     return (
       <View style={styles.emptyDate}>
-        <Text>你今天没有计划</Text>        
+        <Text style={{color:'#666'}}>你今天没有计划</Text>      
       </View>
     );
   }
@@ -91,7 +106,8 @@ class AgendaScreen extends Component {
 function mapStateToProps(state) {  
   const { plans } = state;
   return {
-    plans: state.plans
+    plans: state.plans,
+    decks: state.data
   }
 }
 
@@ -111,6 +127,6 @@ const styles = StyleSheet.create({
   emptyDate: {
     height: 15,
     flex:1,
-    paddingTop: 30
+    paddingTop: 30    
   }
 });
