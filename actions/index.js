@@ -2,6 +2,7 @@ import * as API from '../AsyncStorage';
 
 export const GET_DECKS = 'GET_DECKS';
 export const GET_DECK_DETAIL = 'GET_DECK_DETAIL';
+export const GET_PLANS = 'GET_PLANS';
 
 function receiveDecks(data) {
   return {
@@ -14,6 +15,13 @@ function receiveDeckDetail(deck) {
 	return {
 		type: GET_DECK_DETAIL,
 		deck: deck
+	}
+}
+
+function receivePlans(plans) {
+	return {
+		type: GET_PLANS,
+		plans: plans
 	}
 }
 
@@ -38,5 +46,17 @@ export function addDeck(deck) {
 export function addCardToDeck(card) {
 	return function(dispatch) {
 		return API.addCardToDeck(card).then(() => dispatch(getDeck(card.deckKey)))
+	}
+}
+
+export function getPlanCalendar() {
+	return function(dispatch) {
+	  return API.getPlanCalendar().then(data => dispatch(receivePlans(data)))	      
+	}
+}
+
+export function addPlan(plan) {
+	return function(dispatch) {
+		return API.addPlan(plan).then(() => dispatch(getPlanCalendar()))
 	}
 }

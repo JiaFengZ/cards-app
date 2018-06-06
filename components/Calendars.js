@@ -7,8 +7,10 @@ import {
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import PlanModal from './PlanModal';
+import { connect } from 'react-redux';
+import { getPlanCalendar } from '../actions';
 
-export default class AgendaScreen extends Component {
+class AgendaScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +25,12 @@ export default class AgendaScreen extends Component {
     this.setState({modalVisible: visible});
   }
 
+  componentDidMount() {   
+    this.props.dispatch(getPlanCalendar());
+  }
+
   render() {
+    console.log(this.state.plans);
     return (
       <View style={{height: '100%'}}>
         <Agenda
@@ -39,14 +46,16 @@ export default class AgendaScreen extends Component {
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
         <PlanModal setModalVisible={this.setModalVisible} modalVisible={this.state.modalVisible}/>
-        <TouchableHighlight
-          underlayColor='#841584'
-          style={{backgroundColor: '#1194f6', width: 120, margin: 10}}
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text style={{color: '#fff', textAlign: 'center'}}>添加</Text>
-        </TouchableHighlight>
+        <View style={{alignItems: 'center'}}>
+          <TouchableHighlight
+            underlayColor='#841584'
+            style={{backgroundColor: '#1194f6', width: 120, margin: 10}}
+            onPress={() => {
+              this.setModalVisible(true);
+            }}>
+            <Text style={{color: '#fff', textAlign: 'center'}}>添加</Text>
+          </TouchableHighlight>
+        </View>
       </View>      
     );
   }
@@ -78,6 +87,17 @@ export default class AgendaScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 }
+
+function mapStateToProps(state) {  
+  const { plans } = state;
+  return {
+    plans: state.plans
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(AgendaScreen)
 
 const styles = StyleSheet.create({
   item: {

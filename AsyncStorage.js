@@ -27,7 +27,15 @@ let storage_object = {
   }
 }
 
+let plan_object = {
+
+}
+
 AsyncStorage.setItem('storage', JSON.stringify(storage_object), () => {
+
+});
+
+AsyncStorage.setItem('plan', JSON.stringify(plan_object), () => {
 
 });
 
@@ -64,4 +72,22 @@ export function addCardToDeck({question, answer, deckKey}) {
       [deckKey]: item
     }))
   })
+}
+
+export function addPlan({date, deckKey}) {
+  return AsyncStorage.mergeItem('paln', JSON.stringify({
+      [new Date().getTime()]: {
+        date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+        deckKey: deckKey
+      }
+    }))
+}
+
+export function getPlanCalendar() {
+  return AsyncStorage.getItem('plan')
+  .then((result) => {    
+    const data = JSON.parse(result);
+    const keys = Object.keys(data);
+    return keys.map((key) => data[key]);
+  });
 }
