@@ -39,6 +39,8 @@ AsyncStorage.setItem('plan', JSON.stringify(plan_object), () => {
 
 });
 
+AsyncStorage.setItem('notifications', '')
+
 export function getDecks() {
 	return AsyncStorage.getItem('storage')
   .then((result) => {    
