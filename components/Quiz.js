@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { clearLocalNotification, setLocalNotification } from '../helper';
 
 class Quiz extends Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class Quiz extends Component {
   	this.showAnswer = this.showAnswer.bind(this);
   	this.hideAnswer = this.hideAnswer.bind(this);
     this.selectAnswer = this.selectAnswer.bind(this);
-    this.reset = this.reset.bind(this);
+    this.reset = this.reset.bind(this);    
+    clearLocalNotification().then(() => setLocalNotification()); //今天学习了，更新通知
   }
 
   state = {

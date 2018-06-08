@@ -4,6 +4,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getDecks, addPlan } from '../actions';
+import { setLocalNotification, clearLocalNotification } from '../helper';
 
 class PlanModal extends Component {
   state = {  
@@ -41,6 +42,7 @@ class PlanModal extends Component {
     }
     this.props.dispatch(addPlan({date: this.state.selectedDate, deck: this.state.selectedDeck}));
     this.props.setModalVisible(false);
+    clearLocalNotification().then(() => setLocalNotification()); //添加了学习计划，更新通知
   }
 
   componentDidMount() {   
