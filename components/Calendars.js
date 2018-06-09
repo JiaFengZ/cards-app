@@ -31,10 +31,10 @@ class AgendaScreen extends Component {
   render() {    
     const { plans } = this.props;
     const { items } = this.state;
+    for (let key in items) {
+      items[key] = [];
+    }
     plans.forEach((plan) => {
-      if (!items[plan.date]) {
-        items[plan.date] = [];
-      }
       if (plan.deck) {
         items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title});  
       }      
