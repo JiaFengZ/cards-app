@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers';
 
-import { setLocalNotification } from './helper';
+import { setLocalNotification } from './Notification';
 import Decks from './components/Decks';
 import Deck from './components/Deck';
 import CreateDeck from './components/CreateDeck';
@@ -39,32 +39,47 @@ const Tabs = createBottomTabNavigator({
     }
   }
 }, {
-  initialRouteName: 'Decks'
+  initialRouteName: 'Decks',
+  tabBarOptions: {
+    style: {
+      backgroundColor: '#333'
+    },
+    labelStyle: {
+      color: '#fff'
+    }
+  }
 })
 
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
-    navigationOptions: ({ navigation }) => ({
-      title: '主页'
+    navigationOptions: ({ navigation }) => ({      
+      headerTitle: () => <Text style={style.headText}>主页</Text>,
+      headerStyle: style.head
     })
   },
   DeckDetail: {
     screen: Deck,
-    navigationOptions: ({ navigation }) => ({
-      title: '卡片详情'
+    navigationOptions: ({ navigation }) => ({      
+      headerTitle: () => <Text style={style.headText}>卡片详情</Text>,
+      headerStyle: style.head,
+      headerBackImage: () => <Ionicons name='md-arrow-round-back' size={30} color='#fff'/> 
     })
   },
   CreateCard: {
     screen: CreateCard,
-    navigationOptions: ({ navigation }) => ({
-      title: '创建卡片'
+    navigationOptions: ({ navigation }) => ({      
+      headerTitle: () => <Text style={style.headText}>创建卡片</Text>,
+      headerStyle: style.head,
+      headerBackImage: () => <Ionicons name='md-arrow-round-back' size={30} color='#fff'/> 
     })
   },
   Quiz: {
     screen: Quiz,
-    navigationOptions: ({ navigation }) => ({
-      title: '测试'
+    navigationOptions: ({ navigation }) => ({      
+      headerTitle: () => <Text style={style.headText}>测试</Text>,
+      headerStyle: style.head,
+      headerBackImage: () => <Ionicons name='md-arrow-round-back' size={30} color='#fff'/> 
     })
   }
 }, {
@@ -91,3 +106,15 @@ export default class App extends React.Component {
     );
   }
 }
+
+
+const style = StyleSheet.create({
+  head: {
+    backgroundColor: '#333',
+    paddingLeft: 20
+  },
+  headText: {
+    color: '#fff', 
+    fontSize: 18
+  }
+});

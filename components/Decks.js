@@ -58,7 +58,7 @@ const style = StyleSheet.create({
     height: 5
   },
   deckItem: {
-    backgroundColor: '#68abc8', 
+    backgroundColor: '#841584', 
     padding: 20, 
     margin: 10,
     minHeight: 100,

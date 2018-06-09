@@ -2,24 +2,9 @@ import React from 'react';
 import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
 import { getPlanCalendar } from './AsyncStorage';
+import * as Helper from './helpers';
 
 const NOTIFICATION_KEY = 'notifications';
-
-export function timeToString (time = Date.now()) {
-  const date = new Date(time)
-  const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
-  return todayUTC.toISOString().split('T')[0]
-}
-
-export function sringToDate(str) {
-  const date = str.split('-').map((item) => parseInt(item, 10));
-  let today = new Date();
-  today.setFullYear(date[0]);
-  today.setMonth(date[1] - 1);
-  today.setDate(date[2]);
-  today.setHours(8, 0);  
-  return today;
-}
 
 export function clearLocalNotification() { //清除提醒制定学习计划的通知
   return AsyncStorage.getItem(NOTIFICATION_KEY)
@@ -54,7 +39,7 @@ export function addNotification(planDate) {  //添加单个计划通知
             Notifications.scheduleLocalNotificationAsync(
             createNotification({title: '今日计划！', body: '"👋 你今天制定了学习计划，不要忘记去学习哦!"'}),
             {
-              time: sringToDate(planDate),
+              time: Helper.sringToDate(planDate),
               repeat: 'day',
             }
           ).then((localNotificationId) => {
@@ -77,7 +62,7 @@ function addNotifications(plans) { //批量添加计划通知
     return Notifications.scheduleLocalNotificationAsync(            
       createNotification({title: '今日计划！', body: '"👋 你今天制定了学习计划，不要忘记去学习哦!"'}),
       {
-        time: sringToDate(plan.date),
+        time: Helper.sringToDate(plan.date),
         repeat: 'day',
       }
     )

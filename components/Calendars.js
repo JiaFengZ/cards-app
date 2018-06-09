@@ -7,6 +7,7 @@ import {
   Alert
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
+import TouchButton from './share/TouchButton';
 import PlanModal from './PlanModal';
 import { connect } from 'react-redux';
 import { getPlanCalendar, removePlan } from '../actions';
@@ -21,8 +22,7 @@ class AgendaScreen extends Component {
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  showRemoveModal = (plan) => {
-    console.log(plan.key, plan.text)
+  showRemoveModal = (plan) => {    
     Alert.alert(
       '提示',
       '请选择要进行的操作',
@@ -46,8 +46,7 @@ class AgendaScreen extends Component {
     const { items } = this.state;
     for (let key in items) {
       items[key] = [];
-    }
-    console.log(plans)
+    }    
     plans.forEach((plan) => {
       if (plan.deck) {
         items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title, key: plan.key, date: plan.date});
@@ -63,15 +62,8 @@ class AgendaScreen extends Component {
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
         <PlanModal setModalVisible={this.setModalVisible} decks={this.props.decks} modalVisible={this.state.modalVisible}/>
-        <View style={{alignItems: 'center'}}>
-          <TouchableHighlight
-            underlayColor='#841584'
-            style={{backgroundColor: '#1194f6', borderRadius: 5, width: 120, margin: 10}}
-            onPress={() => {
-              this.setModalVisible(true);
-            }}>
-            <Text style={{color: '#fff', textAlign: 'center'}}>添加</Text>
-          </TouchableHighlight>
+        <View style={{alignSelf: 'center', width: 120}}>          
+          <TouchButton text='添加' handlePress={() => this.setModalVisible(true)}/>
         </View>
       </View>      
     );

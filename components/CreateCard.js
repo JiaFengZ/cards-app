@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, Switch, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert, Switch, StyleSheet } from 'react-native';
+import TouchButton from './share/TouchButton';
 import { connect } from 'react-redux';
 import { addCardToDeck } from '../actions';
 
@@ -29,6 +30,15 @@ class CreateCard extends Component {
   }
 
   saveCard() {
+    if (!this.state.question) {
+      Alert.alert(
+      '提示',
+      '请填写卡片问题！',
+      [        
+        {text: '确定', onPress: () => {}},
+      ])    
+      return;
+    }
     this.props.dispatch(addCardToDeck({
       question: this.state.question,
       answer: this.state.answer,
@@ -50,12 +60,7 @@ class CreateCard extends Component {
         </View>
         
         <View style={{width: 120}}> 
-          <Button
-            onPress={() => this.saveCard()}
-            title="提交"
-            color="#1194f6"     
-            accessibilityLabel="submit the card"
-          />
+          <TouchButton text='提交' handlePress={this.saveCard}/>
         </View>
       </View>
     )

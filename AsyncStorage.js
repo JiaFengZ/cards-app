@@ -73,6 +73,15 @@ export function addPlan({date, deck}) {
     }))
 }
 
+export function removeDeck(deckKey) {
+  return AsyncStorage.getItem('storage')
+  .then((result) => {    
+    const data = JSON.parse(result);    
+    delete data[deckKey];
+    return AsyncStorage.setItem('storage', JSON.stringify(data));
+  });
+}
+
 export function getPlanCalendar() {
   return AsyncStorage.getItem('plan')
   .then((result) => {    
@@ -85,8 +94,7 @@ export function getPlanCalendar() {
 export function removePlan(planKey) {
   return AsyncStorage.getItem('plan')
   .then((result) => {    
-    const data = JSON.parse(result);
-    const keys = Object.keys(data);
+    const data = JSON.parse(result);    
     delete data[planKey];
     return AsyncStorage.setItem('plan', JSON.stringify(data));
   });

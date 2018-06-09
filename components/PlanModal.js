@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Modal, Text, TouchableHighlight, View, Picker, Alert} from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import TouchButton from './share/TouchButton';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getDecks, addPlan } from '../actions';
-import { addNotification, timeToString } from '../helper';
+import { addNotification } from '../Notification';
+import { timeToString } from '../helpers';
 
 class PlanModal extends Component {
   state = {  
@@ -83,27 +85,12 @@ class PlanModal extends Component {
             </Picker>
 
             <Text>选择计划测试的日期</Text>
-            <TouchableHighlight style={{ marginTop: 10}} underlayColor='#eee' onPress={this.showDateTimePicker}>              
+            <TouchableHighlight style={{ marginTop: 10, marginBottom: 20}} underlayColor='#eee' onPress={this.showDateTimePicker}>              
               <Ionicons name="ios-add-circle" size={20} color='#ddd'><Text style={{color: '#333', fontSize: 16}}>&nbsp;&nbsp;{timeToString(this.state.selectedDate)}</Text></Ionicons>
             </TouchableHighlight>            
 
-            <TouchableHighlight
-              underlayColor='#841584'
-              style={{backgroundColor: '#1194f6', borderRadius: 5, width: 120, marginTop: 20}}
-              onPress={() => {
-                this.addPlan();
-              }}>
-              <Text style={{color: '#fff', textAlign: 'center'}}>确定</Text>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              underlayColor='#841584'
-              style={{backgroundColor: '#1194f6', borderRadius: 5, width: 120, marginTop: 10}}
-              onPress={() => {
-                this.props.setModalVisible(false);
-              }}>
-              <Text style={{color: '#fff', textAlign: 'center'}}>取消</Text>
-            </TouchableHighlight>
+            <TouchButton width={120} text='确定' handlePress={this.addPlan}/>
+            <TouchButton width={120} text='取消' handlePress={() => this.props.setModalVisible(false)}/>
           </View>
         </View>
       </Modal>   
