@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getDecks, addPlan } from '../actions';
 import { addNotification } from '../Notification';
-import { timeToString } from '../helpers';
+import { timeToString, sringToDate } from '../helpers';
 
 class PlanModal extends Component {
   state = {  
@@ -53,9 +53,7 @@ class PlanModal extends Component {
     }
     this.props.dispatch(addPlan({date: this.state.selectedDate, deck: this.state.selectedDeck}));
     this.props.setModalVisible(false);
-    const date = this.state.selectedDate.getFullYear() + '-' + 
-          ((this.state.selectedDate.getMonth() + 1) < 10 ? ('0' + (this.state.selectedDate.getMonth() + 1)) : (this.state.selectedDate.getMonth() + 1)) + '-' + 
-          (this.state.selectedDate.getDate() < 10 ? ('0' + this.state.selectedDate.getDate()) : this.state.selectedDate.getDate())  
+    const date = timeToString(this.state.selectedDate);
     addNotification(date);    
   }
 
