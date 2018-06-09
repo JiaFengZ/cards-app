@@ -20,8 +20,7 @@ class AgendaScreen extends Component {
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  setModalVisible(visible) {
-    console.log(visible)
+  setModalVisible(visible) {    
     this.setState({modalVisible: visible});
   }
 
@@ -29,8 +28,7 @@ class AgendaScreen extends Component {
     this.props.dispatch(getPlanCalendar());
   }
 
-  render() {
-    console.log(this.props.plans);
+  render() {    
     const { plans } = this.props;
     const { items } = this.state;
     plans.forEach((plan) => {

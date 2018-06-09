@@ -45,7 +45,10 @@ export function addDeck(deck) {
 
 export function addCardToDeck(card) {
 	return function(dispatch) {
-		return API.addCardToDeck(card).then(() => dispatch(getDeck(card.deckKey)))
+		return API.addCardToDeck(card).then(() => {
+			dispatch(getDeck(card.deckKey));
+			dispatch(getDecks());
+		})
 	}
 }
 
@@ -58,5 +61,11 @@ export function getPlanCalendar() {
 export function addPlan(plan) {
 	return function(dispatch) {
 		return API.addPlan(plan).then(() => dispatch(getPlanCalendar()))
+	}
+}
+
+export function removePlan(planKey) {
+	return function(dispatch) {
+		return API.removePlan(planKey).then(() => dispatch(getPlanCalendar()))
 	}
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
-import { clearLocalNotification, setLocalNotification } from '../helper';
+import { removeNotificationByDate, clearLocalNotification } from '../helper';
 
 class Quiz extends Component {
   constructor(props) {
@@ -8,8 +8,14 @@ class Quiz extends Component {
   	this.showAnswer = this.showAnswer.bind(this);
   	this.hideAnswer = this.hideAnswer.bind(this);
     this.selectAnswer = this.selectAnswer.bind(this);
-    this.reset = this.reset.bind(this);    
-    clearLocalNotification().then(() => setLocalNotification()); //今天学习了，更新通知
+    this.reset = this.reset.bind(this);
+    let date = new Date();
+    date = date.getFullYear() + '-' + 
+          ((date.getMonth() + 1) < 10 ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-' + 
+          (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())  
+    clearLocalNotification();
+    removeNotificationByDate(date);
+    //clearLocalNotification().then(() => setLocalNotification()); //今天学习了，更新通知
   }
 
   state = {

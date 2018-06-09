@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
+import { Notifications } from 'expo';
 
-let storage_object = {
+/*let storage_object = {
   React: {
     title: 'React',
     key: 'React',
@@ -25,21 +26,31 @@ let storage_object = {
       }
     ]
   }
-}
+}*/
 
-let plan_object = {
+AsyncStorage.getItem('storage')
+  .then(JSON.parse)
+  .then(result => {
+    if (result === null) {
+      AsyncStorage.setItem('storage', JSON.stringify({}));
+    }
+  })
 
-}
+AsyncStorage.getItem('plan')
+  .then(JSON.parse)
+  .then(result => {
+    if (result === null) {
+      AsyncStorage.setItem('plan', JSON.stringify({}));
+    }
+  })
 
-AsyncStorage.setItem('storage', JSON.stringify(storage_object), () => {
-
-});
-
-AsyncStorage.setItem('plan', JSON.stringify(plan_object), () => {
-
-});
-
-AsyncStorage.setItem('notifications', '')
+AsyncStorage.getItem('notificationsIdList')
+  .then(JSON.parse)
+  .then(result => {
+    if (result === null) {
+      AsyncStorage.setItem('notificationsIdList', JSON.stringify([]));
+    }
+  })
 
 export function getDecks() {
 	return AsyncStorage.getItem('storage')
@@ -76,14 +87,15 @@ export function addCardToDeck({question, answer, deckKey}) {
   })
 }
 
-export function addPlan({date, deck}) {
-  console.log(deck);
+export function addPlan({date, deck}) {  
+  const planKey = new Date().getTime();
   return AsyncStorage.mergeItem('plan', JSON.stringify({
-      [new Date().getTime()]: {
+      [planKey]: {
         date: date.getFullYear() + '-' + 
           ((date.getMonth() + 1) < 10 ? ('0' + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-' + 
           (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()),
-        deck: deck
+        deck: deck,        
+        key: planKey
       }
     }))
 }
@@ -94,5 +106,15 @@ export function getPlanCalendar() {
     const data = JSON.parse(result);
     const keys = Object.keys(data);
     return keys.map((key) => data[key]);
+  });
+}
+
+export function removePlan(planKey) {
+  return AsyncStorage.getItem('plan')
+  .then((result) => {    
+    const data = JSON.parse(result);
+    const keys = Object.keys(data);
+    delete data[planKey];
+    return AsyncStorage.setItem('plan', JSON.stringify(data));
   });
 }
