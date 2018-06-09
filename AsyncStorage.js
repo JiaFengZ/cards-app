@@ -5,7 +5,13 @@ AsyncStorage.getItem('storage')
   .then(JSON.parse)
   .then(result => {
     if (result === null) {
-      AsyncStorage.setItem('storage', JSON.stringify({}));
+      AsyncStorage.setItem('storage', JSON.stringify({
+        'React': {
+          title: 'React',
+          key: 'React',
+          questions: []
+        }
+      }));
     }
   })
 

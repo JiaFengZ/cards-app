@@ -13,7 +13,7 @@ class CreateCard extends Component {
   }
 
   state = {
-    answer: false,
+    answer: true,
     question: ''
   }
 
