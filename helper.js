@@ -17,9 +17,7 @@ function sringToDate(str) {
   today.setFullYear(date[0]);
   today.setMonth(date[1] - 1);
   today.setDate(date[2]);
-  today.setHours(8);
-  today.setMinutes(0);
-  console.log(today);
+  today.setHours(8, 0);  
   return today;
 }
 

@@ -3,12 +3,13 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Alert
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import PlanModal from './PlanModal';
 import { connect } from 'react-redux';
-import { getPlanCalendar } from '../actions';
+import { getPlanCalendar, removePlan } from '../actions';
 
 class AgendaScreen extends Component {
   constructor(props) {
@@ -18,6 +19,17 @@ class AgendaScreen extends Component {
       modalVisible: false
     };
     this.setModalVisible = this.setModalVisible.bind(this);
+  }
+
+  showRemoveModal = (planKey) => {
+    Alert.alert(
+      '提示',
+      '确定要删除吗？',
+      [        
+        {text: '确定', onPress: () => this.props.dispatch(removePlan(planKey))},
+        {text: '取消', onPress: () => {}},
+      ],
+    ) 
   }
 
   setModalVisible(visible) {    
@@ -36,7 +48,7 @@ class AgendaScreen extends Component {
     }
     plans.forEach((plan) => {
       if (plan.deck) {
-        items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title});  
+        items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title, key: plan.key});
       }      
     }) 
     return (
@@ -79,7 +91,7 @@ class AgendaScreen extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item, {height: item.height}]}><Text>{item.text}</Text></View>
+      <View style={[styles.item, {height: item.height}]}><Text onLongPress={() => this.showRemoveModal(item.key)}>{item.text}</Text></View>
     );
   }
 
