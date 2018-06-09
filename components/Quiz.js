@@ -4,9 +4,9 @@ import { removeNotificationByDate, clearLocalNotification } from '../helper';
 
 class Quiz extends Component {
   constructor(props) {
-  	super(props);
-  	this.showAnswer = this.showAnswer.bind(this);
-  	this.hideAnswer = this.hideAnswer.bind(this);
+    super(props);
+    this.showAnswer = this.showAnswer.bind(this);
+    this.hideAnswer = this.hideAnswer.bind(this);
     this.selectAnswer = this.selectAnswer.bind(this);
     this.reset = this.reset.bind(this);
     let date = new Date();
@@ -19,7 +19,7 @@ class Quiz extends Component {
   }
 
   state = {
-  	showAnswer: false,
+    showAnswer: false,
     score: 0,
     allQuestions: Array.isArray(this.props.navigation.state.params.questions) ? this.props.navigation.state.params.questions : [],
     curQuestionIndex: 0,
@@ -27,15 +27,15 @@ class Quiz extends Component {
   }
 
   showAnswer() {
-  	this.setState({
-  		showAnswer: true
-  	})
+    this.setState({
+      showAnswer: true
+    })
   }
 
   hideAnswer() {
-  	this.setState({
-  		showAnswer: false
-  	})
+    this.setState({
+      showAnswer: false
+    })
   }
 
   selectAnswer(answer) {    

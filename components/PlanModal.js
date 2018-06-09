@@ -57,10 +57,6 @@ class PlanModal extends Component {
     addNotification(date);    
   }
 
-  componentDidMount() {   
-    //this.props.dispatch(getDecks());
-  }
-
   render() {    
     return (
       <Modal
@@ -93,7 +89,7 @@ class PlanModal extends Component {
 
             <TouchableHighlight
               underlayColor='#841584'
-              style={{backgroundColor: '#1194f6', width: 120, marginTop: 20}}
+              style={{backgroundColor: '#1194f6', borderRadius: 5, width: 120, marginTop: 20}}
               onPress={() => {
                 this.addPlan();
               }}>
@@ -102,7 +98,7 @@ class PlanModal extends Component {
 
             <TouchableHighlight
               underlayColor='#841584'
-              style={{backgroundColor: '#1194f6', width: 120, marginTop: 10}}
+              style={{backgroundColor: '#1194f6', borderRadius: 5, width: 120, marginTop: 10}}
               onPress={() => {
                 this.props.setModalVisible(false);
               }}>
@@ -115,12 +111,4 @@ class PlanModal extends Component {
   }
 }
 
-function mapStateToProps(state) {  
-  return {
-    decks: state.data,    
-  }
-}
-
-export default connect(
-  
-)(PlanModal)
+export default connect()(PlanModal)

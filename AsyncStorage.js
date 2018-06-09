@@ -1,33 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 
-/*let storage_object = {
-  React: {
-    title: 'React',
-    key: 'React',
-    questions: [
-      {
-        question: 'Is React a library for managing user interfaces?',
-        answer: true
-      },
-      {
-        question: 'Do we make Ajax requests in React in the componentDidMount lifecycle event?',
-        answer: true
-      }
-    ]
-  },
-  Javascript: {
-    title: 'JavaScript',
-    key: 'Javascript',
-    questions: [
-      {
-        question: 'The combination of a function and the lexical environment within which that function was declared',
-        answer: true
-      }
-    ]
-  }
-}*/
-
 AsyncStorage.getItem('storage')
   .then(JSON.parse)
   .then(result => {
@@ -53,7 +26,7 @@ AsyncStorage.getItem('notificationsIdList')
   })
 
 export function getDecks() {
-	return AsyncStorage.getItem('storage')
+  return AsyncStorage.getItem('storage')
   .then((result) => {    
     const data = JSON.parse(result);
     const keys = Object.keys(data);

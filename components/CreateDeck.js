@@ -34,11 +34,11 @@ class CreateDeck extends Component {
   render() {
     return (
       <View style={style.container}>
-      	<View>
-          <Text style={{fontSize: 20, textAlign: 'center'}}>请输入卡片集的名称？</Text>
-          <TextInput style={{width: 200, padding: 10}} placeholder="卡片集名称" value={this.state.title} onChangeText={(text) => this.updateDeckTitle(text)}></TextInput>  
+        <View style={style.card}>
+          <Text style={{fontSize: 20, color: '#ddd'}}>请输入卡片集的名称？</Text>
+          <TextInput style={{padding: 10, color: '#ddd', borderColor: '#eee'}} placeholder="卡片集名称" value={this.state.title} onChangeText={(text) => this.updateDeckTitle(text)}></TextInput>  
         </View>        
-      	<View style={{width: 120}}>
+        <View style={{width: 200}}>
           <Button
             onPress={() => this.saveDeckTitle()}
             title="创建卡片集"
@@ -59,5 +59,15 @@ const style = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'space-between', 
     padding: 20
+  },
+  card: {
+    width: '80%',
+    padding: 10,    
+    borderRadius: 5,
+    backgroundColor: '#68abc8', 
+    shadowColor: 'rgba(0, 0, 0, 0.6)',
+    shadowOpacity: 0.6,
+    shadowOffset: {width: 0, height: 2},
+    elevation: 10,
   }
 });

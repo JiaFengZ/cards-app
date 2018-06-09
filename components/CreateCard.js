@@ -5,21 +5,21 @@ import { addCardToDeck } from '../actions';
 
 class CreateCard extends Component {
   constructor(props) {
-  	super(props);
-  	this.selectAnswer = this.selectAnswer.bind(this);
+    super(props);
+    this.selectAnswer = this.selectAnswer.bind(this);
     this.updateCardQuestion = this.updateCardQuestion.bind(this);
     this.saveCard = this.saveCard.bind(this);
   }
 
   state = {
-  	answer: false,
+    answer: false,
     question: ''
   }
 
   selectAnswer(value) {
-  	this.setState({
-  		answer: value
-  	})
+    this.setState({
+      answer: value
+    })
   }
 
   updateCardQuestion(value) {
@@ -39,8 +39,8 @@ class CreateCard extends Component {
 
   render() {
     return (
-      <View style={style.container}>      	
-      	<View>
+      <View style={style.container}>        
+        <View>
           <TextInput style={{width: 200, padding: 10}} multiline={true} placeholder="请输入卡片问题" value={this.state.question} onChangeText={(text) => this.updateCardQuestion(text)}></TextInput>       
           <View style={{flexDirection: 'row', padding: 10}}>                    
             <Text>卡片答案：</Text>
@@ -49,7 +49,7 @@ class CreateCard extends Component {
           </View>  
         </View>
         
-      	<View style={{width: 120}}> 
+        <View style={{width: 120}}> 
           <Button
             onPress={() => this.saveCard()}
             title="提交"

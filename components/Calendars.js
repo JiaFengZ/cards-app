@@ -66,7 +66,7 @@ class AgendaScreen extends Component {
         <View style={{alignItems: 'center'}}>
           <TouchableHighlight
             underlayColor='#841584'
-            style={{backgroundColor: '#1194f6', width: 120, margin: 10}}
+            style={{backgroundColor: '#1194f6', borderRadius: 5, width: 120, margin: 10}}
             onPress={() => {
               this.setModalVisible(true);
             }}>

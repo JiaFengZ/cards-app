@@ -12,28 +12,28 @@ class Deck extends Component {
     const { deck } = this.props;    
     return (
       <View style={style.container}>
-      	<View style={style.cards}>
-      		<Text style={{fontSize: 20}}>{deck.title}</Text>
-      		<Text style={{color: '#666'}}>{deck.questions&&deck.questions.length}&nbsp;cards</Text>
-      	</View>
-      	<View style={{width: 200, marginBottom: 10}}>
-	      	<View>
-	      		<Button
-						  onPress={() => this.props.navigation.navigate('CreateCard', {deckKey: deck.key})}
-						  title="添加卡片"
-						  color="#1194f6"		  
-						  accessibilityLabel="add card"
-						/>
-	      	</View>
-	      	<View style={{marginTop: 10}}>
-	      		<Button
-						  onPress={() => this.props.navigation.navigate('Quiz', {questions: deck.questions})}
-						  title="开始测试"
-						  color="#841584"		  
-						  accessibilityLabel="quit"
-						/> 	    
-	      	</View>	      	 		
-	    	</View>
+        <View style={style.cards}>
+          <Text style={{color: '#f2f2f2', fontSize: 20}}>{deck.title}</Text>
+          <Text style={{color: '#ddd'}}>{deck.questions&&deck.questions.length}&nbsp;cards</Text>
+        </View>
+        <View style={{width: 200, marginBottom: 10}}>
+          <View>
+            <Button
+              onPress={() => this.props.navigation.navigate('CreateCard', {deckKey: deck.key})}
+              title="添加卡片"
+              color="#1194f6"     
+              accessibilityLabel="add card"
+            />
+          </View>
+          <View style={{marginTop: 10}}>
+            <Button
+              onPress={() => this.props.navigation.navigate('Quiz', {questions: deck.questions})}
+              title="开始测试"
+              color="#841584"     
+              accessibilityLabel="quit"
+            />      
+          </View>             
+        </View>
       </View>
       
     )
@@ -56,7 +56,7 @@ const style = StyleSheet.create({
     alignItems: 'center', 
     width: '100%', 
     borderRadius: 5,
-    backgroundColor: '#fff', 
+    backgroundColor: '#68abc8', 
     shadowColor: 'rgba(0, 0, 0, 0.6)',
     shadowOpacity: 0.6,
     shadowOffset: {width: 0, height: 2},
