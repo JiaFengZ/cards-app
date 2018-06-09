@@ -31,7 +31,7 @@ AsyncStorage.getItem('notificationsIdList')
     }
   })
 
-export function getDecks() {
+export function getDecks() { //获取所有卡片集
   return AsyncStorage.getItem('storage')
   .then((result) => {    
     const data = JSON.parse(result);
@@ -40,7 +40,7 @@ export function getDecks() {
   });
 }
 
-export function getDeck(deckKey) {
+export function getDeck(deckKey) {  //获取卡片集详情
   return AsyncStorage.getItem('storage')
   .then((result) => {    
     const data = JSON.parse(result);
@@ -48,13 +48,13 @@ export function getDeck(deckKey) {
   });
 }
 
-export function saveDeckTitle({key, title}) {
+export function saveDeckTitle({key, title}) { //新建卡片集
   return AsyncStorage.mergeItem('storage', JSON.stringify({
     [key]: {title: title, key: key, questions: []}
   }))
 }
 
-export function addCardToDeck({question, answer, deckKey}) {
+export function addCardToDeck({question, answer, deckKey}) { //添加卡片到卡片集
   return AsyncStorage.getItem('storage')
   .then((result) => {
     const data = JSON.parse(result);
@@ -66,7 +66,16 @@ export function addCardToDeck({question, answer, deckKey}) {
   })
 }
 
-export function addPlan({date, deck}) {  
+export function removeDeck(deckKey) { //删除卡片集
+  return AsyncStorage.getItem('storage')
+  .then((result) => {    
+    const data = JSON.parse(result);    
+    delete data[deckKey];
+    return AsyncStorage.setItem('storage', JSON.stringify(data));
+  });
+}
+
+export function addPlan({date, deck}) {  //添加学习计划
   const planKey = new Date().getTime();
   return AsyncStorage.mergeItem('plan', JSON.stringify({
       [planKey]: {
@@ -79,16 +88,7 @@ export function addPlan({date, deck}) {
     }))
 }
 
-export function removeDeck(deckKey) {
-  return AsyncStorage.getItem('storage')
-  .then((result) => {    
-    const data = JSON.parse(result);    
-    delete data[deckKey];
-    return AsyncStorage.setItem('storage', JSON.stringify(data));
-  });
-}
-
-export function getPlanCalendar() {
+export function getPlanCalendar() { //获取所有学习计划
   return AsyncStorage.getItem('plan')
   .then((result) => {    
     const data = JSON.parse(result);
@@ -97,7 +97,7 @@ export function getPlanCalendar() {
   });
 }
 
-export function removePlan(planKey) {
+export function removePlan(planKey) { //删除学习计划
   return AsyncStorage.getItem('plan')
   .then((result) => {    
     const data = JSON.parse(result);    
@@ -106,7 +106,7 @@ export function removePlan(planKey) {
   });
 }
 
-export function hasPlanThisDay(date) {
+export function hasPlanThisDay(date) { //判断特定日期是否有学习计划
   return AsyncStorage.getItem('plan')
   .then((result) => {    
     const data = JSON.parse(result);

@@ -5,7 +5,7 @@ import TouchButton from './share/TouchButton';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getDecks, addPlan } from '../actions';
-import { addNotification } from '../Notification';
+import { addNotification, clearLocalNotification } from '../Notification';
 import { timeToString, sringToDate } from '../helpers';
 
 class PlanModal extends Component {
@@ -54,6 +54,7 @@ class PlanModal extends Component {
     this.props.dispatch(addPlan({date: this.state.selectedDate, deck: this.state.selectedDeck}));
     this.props.setModalVisible(false);
     const date = timeToString(this.state.selectedDate);
+    clearLocalNotification();
     addNotification(date);    
   }
 
