@@ -21,13 +21,14 @@ class AgendaScreen extends Component {
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  showRemoveModal = (planKey) => {
+  showRemoveModal = (plan) => {
+    console.log(plan.key, plan.text)
     Alert.alert(
       '提示',
-      '确定要删除吗？',
+      '请选择要进行的操作',
       [        
-        {text: '确定', onPress: () => this.props.dispatch(removePlan(planKey))},
-        {text: '取消', onPress: () => {}},
+        {text: '删除', onPress: () => this.props.dispatch(removePlan(plan.key, plan.date))},
+        {text: '关闭', onPress: () => {}},
       ],
     ) 
   }
@@ -46,21 +47,22 @@ class AgendaScreen extends Component {
     for (let key in items) {
       items[key] = [];
     }
+    console.log(plans)
     plans.forEach((plan) => {
       if (plan.deck) {
-        items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title, key: plan.key});
+        items[plan.date].push({text: '今天计划测试卡片集：' + plan.deck.title, key: plan.key, date: plan.date});
       }      
     }) 
     return (
       <View style={{height: '100%'}}>
         <Agenda
-          items={items}
+          items={items}          
           loadItemsForMonth={this.loadItems.bind(this)}
           renderItem={this.renderItem.bind(this)}          
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
-        <PlanModal setModalVisible={this.setModalVisible} modalVisible={this.state.modalVisible}/>
+        <PlanModal setModalVisible={this.setModalVisible} decks={this.props.decks} modalVisible={this.state.modalVisible}/>
         <View style={{alignItems: 'center'}}>
           <TouchableHighlight
             underlayColor='#841584'
@@ -91,7 +93,7 @@ class AgendaScreen extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item, {height: item.height}]}><Text onLongPress={() => this.showRemoveModal(item.key)}>{item.text}</Text></View>
+      <View style={[styles.item, {height: item.height}]} key={item.key}><Text onLongPress={() => this.showRemoveModal(item)}>{item.text}</Text></View>
     );
   }
 
@@ -104,7 +106,7 @@ class AgendaScreen extends Component {
   }
 
   rowHasChanged(r1, r2) {
-    return r1.name !== r2.name;
+    return r1.key !== r2.key;
   }
 
   timeToString(time) {

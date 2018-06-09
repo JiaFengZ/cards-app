@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View, Picker} from 'react-native';
+import {Modal, Text, TouchableHighlight, View, Picker, Alert} from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getDecks, addPlan } from '../actions';
-import { addNotification } from '../helper';
+import { addNotification, timeToString } from '../helper';
 
 class PlanModal extends Component {
   state = {  
     isDateTimePickerVisible: false,
-    selectedDate: null,
-    selectedDeck: null  
+    selectedDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+    selectedDeck: this.props.decks[0]  
   }
 
 
@@ -26,17 +26,27 @@ class PlanModal extends Component {
   }
 
   handleDeckPicked = (deck) => {    
-    this.setState({
+   this.setState({
       selectedDeck: deck
-    })
+    })    
   }
 
   addPlan = () => {
-    if (!this.state.selectedDate) {
-      alert('请选择日期！');
+    if (!this.state.selectedDate) {      
+      Alert.alert(
+      '提示',
+      '请选择日期！',
+      [        
+        {text: '确定', onPress: () => {}},
+      ])    
       return;
-    } else if (!this.state.selectedDeck) {
-      alert('请选择卡片集！');
+    } else if (!this.state.selectedDeck) {      
+      Alert.alert(
+      '提示',
+      '请选择卡片集！',
+      [        
+        {text: '确定', onPress: () => {}},
+      ])
       return;
     }
     this.props.dispatch(addPlan({date: this.state.selectedDate, deck: this.state.selectedDeck}));
@@ -44,12 +54,11 @@ class PlanModal extends Component {
     const date = this.state.selectedDate.getFullYear() + '-' + 
           ((this.state.selectedDate.getMonth() + 1) < 10 ? ('0' + (this.state.selectedDate.getMonth() + 1)) : (this.state.selectedDate.getMonth() + 1)) + '-' + 
           (this.state.selectedDate.getDate() < 10 ? ('0' + this.state.selectedDate.getDate()) : this.state.selectedDate.getDate())  
-    addNotification(date);
-    //clearLocalNotification().then(() => setLocalNotification()); //添加了学习计划，更新通知
+    addNotification(date);    
   }
 
   componentDidMount() {   
-    this.props.dispatch(getDecks());
+    //this.props.dispatch(getDecks());
   }
 
   render() {    
@@ -59,7 +68,7 @@ class PlanModal extends Component {
         transparent={false}        
         visible={this.props.modalVisible}
         onRequestClose={() => {
-          alert('Modal has been closed.');
+          this.props.setModalVisible(false)
         }}>
         <View style={{marginTop: 22, alignItems: 'center', width: '100%'}}>
           <View>
@@ -67,6 +76,7 @@ class PlanModal extends Component {
               isVisible={this.state.isDateTimePickerVisible}
               onConfirm={this.handleDatePicked}
               onCancel={this.hideDateTimePicker}
+              minimumDate={new Date(new Date().getTime() + 24 * 60 * 60 * 1000)}
             />
             <Text>选择计划测试的卡片集</Text>
             <Picker
@@ -77,22 +87,22 @@ class PlanModal extends Component {
             </Picker>
 
             <Text>选择计划测试的日期</Text>
-            <TouchableHighlight underlayColor='#eee' onPress={this.showDateTimePicker}>              
-              <Ionicons name="ios-add-circle" size={20} color='#ddd'></Ionicons>
+            <TouchableHighlight style={{ marginTop: 10}} underlayColor='#eee' onPress={this.showDateTimePicker}>              
+              <Ionicons name="ios-add-circle" size={20} color='#ddd'><Text style={{color: '#333', fontSize: 16}}>&nbsp;&nbsp;{timeToString(this.state.selectedDate)}</Text></Ionicons>
             </TouchableHighlight>            
 
             <TouchableHighlight
               underlayColor='#841584'
-              style={{backgroundColor: '#1194f6', width: 120, margin: 10}}
+              style={{backgroundColor: '#1194f6', width: 120, marginTop: 20}}
               onPress={() => {
                 this.addPlan();
               }}>
-              <Text style={{color: '#fff', textAlign: 'center'}}>添加</Text>
+              <Text style={{color: '#fff', textAlign: 'center'}}>确定</Text>
             </TouchableHighlight>
 
             <TouchableHighlight
               underlayColor='#841584'
-              style={{backgroundColor: '#1194f6', width: 120, margin: 10}}
+              style={{backgroundColor: '#1194f6', width: 120, marginTop: 10}}
               onPress={() => {
                 this.props.setModalVisible(false);
               }}>
@@ -107,10 +117,10 @@ class PlanModal extends Component {
 
 function mapStateToProps(state) {  
   return {
-    decks: state.data
+    decks: state.data,    
   }
 }
 
 export default connect(
-  mapStateToProps
+  
 )(PlanModal)

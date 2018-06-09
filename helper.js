@@ -11,7 +11,7 @@ export function timeToString (time = Date.now()) {
   return todayUTC.toISOString().split('T')[0]
 }
 
-function sringToDate(str) {
+export function sringToDate(str) {
   const date = str.split('-').map((item) => parseInt(item, 10));
   let today = new Date();
   today.setFullYear(date[0]);
@@ -32,28 +32,44 @@ export function clearLocalNotification() { //清除提醒制定学习计划的�
     })
 }
 
+function hasNotificationThisDay(date) {
+  return AsyncStorage.getItem('notificationsIdList')
+  .then((result) => {
+    const data = JSON.parse(result);
+    if (data.length === 0) return false;
+    return data.some((item) => {      
+      return item.planDate === date;
+    })    
+  })
+}
+
 
 export function addNotification(planDate) {  //添加单个计划通知
-  Permissions.askAsync(Permissions.NOTIFICATIONS)
-    .then(({ status }) => {
-      if (status === 'granted') {        
-        Notifications.scheduleLocalNotificationAsync(
-        createNotification({title: '今日计划！', body: '"👋 你今天制定了学习计划，不要忘记去学习哦!"'}),
-        {
-          time: sringToDate(planDate),
-          repeat: 'day',
-        }
-      ).then((localNotificationId) => {
-        return AsyncStorage.getItem('notificationsIdList')
-        .then((result) => {
-          let data = JSON.parse(result);      
-          data.push({localNotificationId: localNotificationId, planDate: planDate});
-          console.log(planDate + '计划通知', data)
-          return AsyncStorage.setItem('notificationsIdList', JSON.stringify(data));
-        })
-      })                          
-    }      
-  })
+  hasNotificationThisDay(planDate)
+  .then(result => {
+    if (!result) {
+      Permissions.askAsync(Permissions.NOTIFICATIONS)
+        .then(({ status }) => {
+          if (status === 'granted') {        
+            Notifications.scheduleLocalNotificationAsync(
+            createNotification({title: '今日计划！', body: '"👋 你今天制定了学习计划，不要忘记去学习哦!"'}),
+            {
+              time: sringToDate(planDate),
+              repeat: 'day',
+            }
+          ).then((localNotificationId) => {
+            return AsyncStorage.getItem('notificationsIdList')
+            .then((result) => {
+              let data = JSON.parse(result);      
+              data.push({localNotificationId: localNotificationId, planDate: planDate});
+              console.log(planDate + '计划通知', data)
+              return AsyncStorage.setItem('notificationsIdList', JSON.stringify(data));
+            })
+          })                          
+        }      
+      })    
+    }
+  })  
 }
 
 function addNotifications(plans) { //批量添加计划通知
@@ -76,7 +92,7 @@ function addNotifications(plans) { //批量添加计划通知
   })
 }
 
-export function removeNotificationByDate(date) { //根据日期批量移除通知
+export function removeNotificationByDate(date) { //根据日期移除通知
   return AsyncStorage.getItem('notificationsIdList')
   .then((result) => {
     let data = JSON.parse(result);

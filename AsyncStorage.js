@@ -118,3 +118,15 @@ export function removePlan(planKey) {
     return AsyncStorage.setItem('plan', JSON.stringify(data));
   });
 }
+
+export function hasPlanThisDay(date) {
+  return AsyncStorage.getItem('plan')
+  .then((result) => {    
+    const data = JSON.parse(result);
+    const keys = Object.keys(data);
+    if (keys.length === 0) return false;
+    return keys.map((key) => data[key]).some((item) => {
+      return item.date === date;
+    })    
+  });
+}

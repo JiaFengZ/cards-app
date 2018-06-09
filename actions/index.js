@@ -1,4 +1,5 @@
 import * as API from '../AsyncStorage';
+import { removeNotificationByDate } from '../helper';
 
 export const GET_DECKS = 'GET_DECKS';
 export const GET_DECK_DETAIL = 'GET_DECK_DETAIL';
@@ -64,8 +65,16 @@ export function addPlan(plan) {
 	}
 }
 
-export function removePlan(planKey) {
+export function removePlan(planKey, planDate) {
 	return function(dispatch) {
-		return API.removePlan(planKey).then(() => dispatch(getPlanCalendar()))
+		return API.removePlan(planKey).then(() => {
+			dispatch(getPlanCalendar());
+			API.hasPlanThisDay(planDate)
+			.then(result => {
+				if (!result) {
+					removeNotificationByDate(planDate);
+				}
+			})
+		})
 	}
 }
