@@ -1,5 +1,12 @@
 {
-  "expo": {
-    "sdkVersion": "26.0.0"
-  }
-}
+   "expo": {
+    "name": "cards-app",
+    "icon": "./app-icon.png",
+    "version": "1.0.0",
+    "slug": "cards",
+    "sdkVersion": "26.0.0",
+    "android": {
+      "package": "com.zjf.cards"
+    }
+   }
+ }

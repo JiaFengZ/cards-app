@@ -3,6 +3,31 @@
 * yarn start
 * 本项目在 Android 模拟器上可成功测试运行
 
+## 构建打包apk
+* npm intall exp -g
+* 完善app.json的配置信息
+```javascript
+{
+   "expo": {
+    "name": "cards-app",
+    "icon": "./app-icon.png",
+    "version": "1.0.0",
+    "slug": "cards",
+    "sdkVersion": "26.0.0",
+    "android": {
+      "package": "com.zjf.cards"
+    }
+   }
+ }
+```
+* exp build:android
+* 界面展示
+![卡片集](/imgs/cards.png)
+![创建卡片集](/imgs/createDeck.png)
+![我的计划页面](/imgs/myplan)
+![卡片集详情](/imgs/addCard.png)
+![创建卡片](/imgs/addCards.png)
+
 ## app 页面视图设计
 * 卡片集列表：显示所有卡片集
 * 卡片详情：显示卡片集详情，有开始测试/添加卡片/删除卡片集按钮
