@@ -21,7 +21,7 @@
  }
 ```
 * exp build:android
-* 界面展示
+* 界面展示<br/>
 ![卡片集](/imgs/cards.png)
 ![创建卡片集](/imgs/createDeck.png)
 ![我的计划页面](/imgs/myplan)
